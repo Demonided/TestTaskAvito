@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TestTaskAvito</string>
+
+    <string name="bottomAnnouncement">TestTaskAvito</string>
+    <string name="bottomFavorite">TestTaskAvito</string>
+    <string name="bottomMessage">TestTaskAvito</string>
+    <string name="bottomProfile">TestTaskAvito</string>
+    <string name="bottomSearch">TestTaskAvito</string>
+</resources>

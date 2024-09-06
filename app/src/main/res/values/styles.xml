@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="NavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="itemIconTint">@drawable/bottom_navigation_tab_bar</item>
+        <item name="itemTextColor">@drawable/bottom_navigation_tab_bar</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="BottomNavigationText">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+</resources>
