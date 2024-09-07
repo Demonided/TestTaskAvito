@@ -1,15 +1,15 @@
-package com.example.testtaskavito.ui.announcement
+package com.example.testtaskavito.ui.product
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.testtaskavito.databinding.FragmentAnnouncementBinding
+import com.example.testtaskavito.databinding.FragmentProductBinding
 
-class AnnouncementFragment: Fragment() {
+class ProductFragment: Fragment() {
 
-    private var _binding: FragmentAnnouncementBinding? = null
+    private var _binding: FragmentProductBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -17,13 +17,12 @@ class AnnouncementFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAnnouncementBinding.inflate(layoutInflater)
+        _binding = FragmentProductBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
     }
 

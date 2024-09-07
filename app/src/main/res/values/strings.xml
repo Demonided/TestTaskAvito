@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">TestTaskAvito</string>
 
-    <string name="bottomAnnouncement">TestTaskAvito</string>
-    <string name="bottomFavorite">TestTaskAvito</string>
-    <string name="bottomMessage">TestTaskAvito</string>
-    <string name="bottomProfile">TestTaskAvito</string>
-    <string name="bottomSearch">TestTaskAvito</string>
+    <string name="bottomAnnouncement">Объявление</string>
+    <string name="bottomFavorite">Избранное</string>
+    <string name="bottomMessage">Сообщение</string>
+    <string name="bottomProfile">Профиль</string>
+    <string name="bottomSearch">Поиск</string>
 </resources>

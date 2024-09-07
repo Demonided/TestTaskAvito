@@ -2,26 +2,26 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/announcementFragment2">
+    app:startDestination="@id/searchFragment">
 
     <fragment
-        android:id="@+id/announcementFragment2"
+        android:id="@+id/announcementFragment"
         android:name="com.example.testtaskavito.ui.announcement.AnnouncementFragment"
         android:label="AnnouncementFragment" />
     <fragment
-        android:id="@+id/favoriteFragment2"
+        android:id="@+id/favoriteFragment"
         android:name="com.example.testtaskavito.ui.favorite.FavoriteFragment"
         android:label="FavoriteFragment" />
     <fragment
-        android:id="@+id/messageFragment2"
+        android:id="@+id/messageFragment"
         android:name="com.example.testtaskavito.ui.message.MessageFragment"
         android:label="MessageFragment" />
     <fragment
-        android:id="@+id/profileFragment2"
+        android:id="@+id/profileFragment"
         android:name="com.example.testtaskavito.ui.profile.ProfileFragment"
         android:label="ProfileFragment" />
     <fragment
-        android:id="@+id/searchFragment2"
+        android:id="@+id/searchFragment"
         android:name="com.example.testtaskavito.ui.search.SearchFragment"
         android:label="SearchFragment" />
 </navigation>
