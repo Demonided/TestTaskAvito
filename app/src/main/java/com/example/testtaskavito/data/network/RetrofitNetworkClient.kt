@@ -41,7 +41,7 @@ private val context: Context,
                     }
 
                     is UserRequest -> {
-                        productApi.getProduct(dto.userId)
+                        productApi.getUsers()
                     }
 
                     is ProductAllRequest -> {
