@@ -2,21 +2,115 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/black_light"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-
-    <TextView
-        android:id="@+id/search_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/red"
-        android:textSize="30sp"
-        android:text="Search View"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_recycler_one_base"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_recycler_two_base"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_recycler_one_base"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_recycler_text"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_recycler_two_base"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_recycler_list_product"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_recycler_text"
+        app:layout_constraintBottom_toTopOf="@id/search_numbers_impression"/>
+
+    <TextView
+        android:id="@+id/search_numbers_impression"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_light"
+        android:textSize="16sp"
+        android:text="Показать по"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="12dp"
+        android:background="@drawable/rounded_button_12"
+        android:backgroundTint="@color/light_grey"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/search_numbers_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black_light"
+        android:text="10"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="12dp"
+        android:background="@drawable/rounded_button_12"
+        android:backgroundTint="@color/light_grey"
+        android:layout_marginStart="40dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/search_numbers_impression"
+        app:layout_constraintStart_toEndOf="@id/search_numbers_impression"
+        app:layout_constraintEnd_toStartOf="@id/search_numbers_20"
+        tools:text="10"
+        />
+
+    <TextView
+        android:id="@+id/search_numbers_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black_light"
+        android:text="20"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="12dp"
+        android:background="@drawable/rounded_button_12"
+        android:backgroundTint="@color/light_grey"
+        app:layout_constraintBaseline_toBaselineOf="@id/search_numbers_10"
+        app:layout_constraintStart_toEndOf="@id/search_numbers_10"
+        app:layout_constraintEnd_toStartOf="@id/search_numbers_30"
+        tools:text="20"
+        />
+
+    <TextView
+        android:id="@+id/search_numbers_30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black_light"
+        android:text="30"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="12dp"
+        android:background="@drawable/rounded_button_12"
+        android:backgroundTint="@color/light_grey"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/search_numbers_20"
+        app:layout_constraintStart_toEndOf="@id/search_numbers_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="30"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
