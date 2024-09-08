@@ -1,16 +1,17 @@
-package com.example.testtaskavito.data.product.dto.list
+package com.example.testtaskavito.domain.product
 
-import com.example.testtaskavito.data.responce.Response
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
-data class CurrentItemResponse(
+@Serializable
+data class Product(
     @SerializedName("_id")
     val id: String,
     val name: String,
     val category: List<String>,
     val price: Int,
     @SerializedName("discounted_price")
-    val discountedPrice: Int,
+    val discountedPrice: Int?,
     val edit: Boolean,
     val images: List<String>,
     val description: String,
@@ -18,4 +19,4 @@ data class CurrentItemResponse(
     val productRating: Double,
     @SerializedName("product_specifications")
     val productSpecifications: List<String>
-): Response()
+)

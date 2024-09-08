@@ -6,4 +6,6 @@
     <string name="bottomMessage">Сообщение</string>
     <string name="bottomProfile">Профиль</string>
     <string name="bottomSearch">Поиск</string>
+
+    <string name="nothing_found">Ничего не найдено</string>
 </resources>
