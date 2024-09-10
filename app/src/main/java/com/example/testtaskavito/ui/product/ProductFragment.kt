@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.testtaskavito.databinding.FragmentProductBinding
 import com.example.testtaskavito.domain.product.Product
 import com.example.testtaskavito.ui.product.viewmodel.ProductViewModel
-import com.example.testtaskavito.ui.search.vewmodel.ProductListViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProductFragment: Fragment() {
@@ -32,8 +32,11 @@ class ProductFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val selectedProduct: Product? = arguments?.getParcelable(SAVE_PRODUCT)
-//        selectedProduct?.let { productViewModel.initState(it) }
+        lifecycleScope.launchWhenStarted {
+            productViewModel.selectedProduct.collect { product ->
+                displayProductInfo(product)
+            }
+        }
 
         binding.productBack.setOnClickListener {
             findNavController().popBackStack()
@@ -42,6 +45,12 @@ class ProductFragment: Fragment() {
         binding.productBack.setOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    private fun displayProductInfo(product: Product?) {
+        // Заполнение UI данными о продукте
+        binding.productName.text = product?.name
+        // Заполните другие поля по необходимости
     }
 
     override fun onDestroyView() {
