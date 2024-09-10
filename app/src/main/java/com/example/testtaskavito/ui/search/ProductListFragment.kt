@@ -1,22 +1,22 @@
 package com.example.testtaskavito.ui.search
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.testtaskavito.R
 import com.example.testtaskavito.databinding.FragmentSearchBinding
+import com.example.testtaskavito.domain.debugLog
 import com.example.testtaskavito.domain.product.Product
 import com.example.testtaskavito.ui.search.vewmodel.ProductListViewModel
 import com.example.testtaskavito.ui.search.vewmodel.ProductState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchFragment: Fragment() {
+class ProductListFragment : Fragment() {
 
     private val viewModel by viewModel<ProductListViewModel>()
 
@@ -24,7 +24,6 @@ class SearchFragment: Fragment() {
     private val binding get() = _binding!!
 
     lateinit var productListAdapter: ProductListAdapter
-    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,23 +37,31 @@ class SearchFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = ProductListAdapter()
-        adapter.itemClickListener = { _, item ->
+        productListAdapter = ProductListAdapter()
+        productListAdapter.itemClickListener = { _, item ->
+            viewModel.setProductInfo(item)
 
-
-            findNavController().popBackStack()
+            findNavController().navigate(
+                R.id.action_searchFragment_to_productFragment
+            )
         }
 
         binding.searchRecyclerListProduct.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.searchRecyclerListProduct.adapter = adapter
+            GridLayoutManager(requireContext(), 2)
+        binding.searchRecyclerListProduct.adapter = productListAdapter
 
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
-            when(state) {
+            debugLog(TAG) {
+                "Наш state = $state"
+            }
+
+            when (state) {
                 is ProductState.Content -> {
                     showContent()
 
+                    productListAdapter.productList.clear() // Очистка списка перед добавлением новых данных (если нужно)
                     productListAdapter.productList.addAll(state.content)
+                    productListAdapter.notifyDataSetChanged() // Уведомление адаптера об изменении данных
                 }
 
                 is ProductState.Loading -> showLoading()
@@ -65,19 +72,33 @@ class SearchFragment: Fragment() {
     }
 
     private fun showContent() {
+        binding.searchRecyclerListProduct.visibility = View.VISIBLE
+        binding.searchProgressBar.visibility = View.GONE
     }
 
     private fun showLoading() {
+        binding.searchRecyclerListProduct.visibility = View.GONE
+        binding.searchProgressBar.visibility = View.VISIBLE
     }
 
     private fun showError(errorMessage: String) {
+        // добавить холдер отображающий состояние
+        binding.searchRecyclerListProduct.visibility = View.GONE
+        binding.searchProgressBar.visibility = View.GONE
     }
 
     private fun showEmpty(message: String) {
+        // добавить холдер отображающий состояние
+        binding.searchRecyclerListProduct.visibility = View.GONE
+        binding.searchProgressBar.visibility = View.GONE
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val TAG = "ProductListFragment"
     }
 }

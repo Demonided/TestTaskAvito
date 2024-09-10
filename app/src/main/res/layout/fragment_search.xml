@@ -9,8 +9,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_recycler_one_base"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_marginTop="40dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -18,8 +18,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_recycler_two_base"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_recycler_one_base"/>
@@ -27,8 +27,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_recycler_text"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_recycler_two_base"/>
@@ -37,7 +37,7 @@
         android:id="@+id/search_recycler_list_product"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:layout_marginHorizontal="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,4 +114,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="30"
         />
+
+    <ProgressBar
+        android:id="@+id/search_progressBar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:indeterminate="false"
+        android:layout_marginTop="250dp"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,10 +20,23 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.90" />
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/product_back"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/product_recycler_view"
+        app:navigationIcon="@drawable/back_icon">
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/product_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:layout_centerInParent="true"
         android:clipToPadding="false"
         android:paddingStart="34dp"
