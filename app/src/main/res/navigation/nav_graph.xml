@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/searchFragment">
+    app:startDestination="@id/profileFragment">
 
     <fragment
         android:id="@+id/announcementFragment"
@@ -22,6 +22,14 @@
         android:label="ProfileFragment" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.testtaskavito.ui.search.SearchFragment"
-        android:label="SearchFragment" />
+        android:name="com.example.testtaskavito.ui.search.ProductListFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.example.testtaskavito.ui.product.ProductFragment"
+        android:label="ProductFragment" />
 </navigation>

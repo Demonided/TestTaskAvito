@@ -1,22 +1,23 @@
 package com.example.testtaskavito.data.network
 
 import com.example.testtaskavito.data.cart.GetCartsResponse
-import com.example.testtaskavito.data.product.dto.TotalNumberProductsResponse
+import com.example.testtaskavito.data.product.dto.ProductAllResponse
 import com.example.testtaskavito.data.product.dto.list.CurrentProductResponse
 import com.example.testtaskavito.data.user.dto.UserAllResponse
 import com.example.testtaskavito.data.user.dto.list.UserDtoResponse
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface GlobalProjectApi {
 
-    @GET("/product")
-    suspend fun getAllProduct(): TotalNumberProductsResponse
+    @GET("/app/v1/products")
+    suspend fun getAllProduct(): ProductAllResponse
 
-    @GET("/product/{product_id}")
+    @GET("/app/v1/products/{product_id}")
     suspend fun getProduct(@Path("product_id") productId: String): CurrentProductResponse
 
-    @GET("/users")
+    @POST("/users")
     suspend fun getAllUsers(): UserAllResponse
 
     @GET("/users/auth/login")

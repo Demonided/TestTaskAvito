@@ -10,19 +10,24 @@ import com.example.testtaskavito.data.responce.Response
 import com.example.testtaskavito.data.responce.ResponseCodes
 import com.example.testtaskavito.data.user.dto.request.UserAllRequest
 import com.example.testtaskavito.data.user.dto.request.UserRequest
+import com.example.testtaskavito.domain.debugLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
 class RetrofitNetworkClient(
-private val context: Context,
+    private val context: Context,
     private val productApi: GlobalProjectApi
-): NetworkClient {
+) : NetworkClient {
 
     override suspend fun doRequest(dto: Any): Response {
         if (!isConnected()) {
             return createNoConnectionResponse()
+        }
+
+        debugLog(TAG) {
+            "Какой возврат dto 1 в doRequest = $dto"
         }
 
         return executeRequest(dto)
@@ -30,10 +35,21 @@ private val context: Context,
 
     private suspend fun executeRequest(dto: Any): Response {
         if (!isValidDto(dto)) {
+            debugLog(TAG) {
+                "Какой возврат dto executeRequest1 = $dto"
+            }
             return createErrorResponse()
         }
 
+        debugLog(TAG) {
+            "Какой возврат dto executeRequest2 = $dto"
+        }
+
         return withContext(Dispatchers.IO) {
+
+            debugLog(TAG) {
+                "Какой возврат dto return = $dto"
+            }
             try {
                 val response = when (dto) {
                     is UserAllRequest -> {
@@ -54,6 +70,10 @@ private val context: Context,
 
                     else -> throw IllegalArgumentException("Invalid DTO type: $dto")
                 }
+
+                debugLog(TAG) {
+                    "Мы сюда дошли response = ${response.resultCode}"
+                }
                 response.apply { resultCode = ResponseCodes.SUCCESS }
 
             } catch (e: IOException) {
@@ -63,7 +83,6 @@ private val context: Context,
                 Log.e("HttpException", e.toString())
                 Response().apply { resultCode = ResponseCodes.SERVER_ERROR }
             }
-
         }
     }
 
@@ -88,13 +107,19 @@ private val context: Context,
     }
 
     private fun isConnected(): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
 
         return capabilities?.run {
             return hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
                     hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
                     hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
         } ?: false
+    }
+
+    companion object {
+        const val TAG = "RetrofitNetworkClient"
     }
 }

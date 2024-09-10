@@ -60,6 +60,10 @@ dependencies {
     implementation(libs.retrofit.gson)
     implementation(libs.retrofit.converter)
 
+    //
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.loging)
+
     // Room
     implementation(libs.room)
     implementation(libs.room.ktx)

@@ -34,6 +34,10 @@ retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
 room = "androidx.room:room-runtime:2.6.1"
 room-kapt = "androidx.room:room-compiler:2.6.1"
 
+# Okhttp
+okhttp = "com.squareup.okhttp3:okhttp:4.11.0"
+okhttp-loging = "com.squareup.okhttp3:logging-interceptor:4.11.0"
+
 # Glide
 glide-material = "com.google.android.material:material:1.11.0"
 glide = "com.github.bumptech.glide:glide:4.15.1"

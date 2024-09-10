@@ -2,9 +2,10 @@ package com.example.testtaskavito.data.product.impl
 
 import com.example.testtaskavito.data.converter.ConverterProduct.mapToProductList
 import com.example.testtaskavito.data.network.NetworkClient
-import com.example.testtaskavito.data.product.dto.TotalNumberProductsResponse
+import com.example.testtaskavito.data.product.dto.ProductAllResponse
 import com.example.testtaskavito.data.product.request.ProductAllRequest
 import com.example.testtaskavito.data.responce.ResponseCodes
+import com.example.testtaskavito.domain.debugLog
 import com.example.testtaskavito.domain.product.Product
 import com.example.testtaskavito.domain.productlist.ProductListRepository
 import com.example.testtaskavito.util.ResourceContentSearch
@@ -18,10 +19,12 @@ class ProductListRepositoryImpl(
     override fun searchListProduct(): Flow<ResourceContentSearch<List<Product>>> = flow {
         val response = networkClient.doRequest(ProductAllRequest)
 
+        debugLog(TAG) { "response = ${response.resultCode}"}
+
         when(response.resultCode) {
             ResponseCodes.SUCCESS -> {
                 try {
-                    val product = (response as TotalNumberProductsResponse).dataProduct
+                    val product = (response as ProductAllResponse).dataProduct
                     emit(ResourceContentSearch.SuccessSearch(product.mapToProductList()))
                 } catch (e: Exception) {
                     emit(ResourceContentSearch.ErrorSearch(response.resultCode.code))
@@ -33,5 +36,9 @@ class ProductListRepositoryImpl(
             ResponseCodes.ERROR  -> emit(ResourceContentSearch.ErrorSearch(response.resultCode.code))
             ResponseCodes.SERVER_ERROR -> emit(ResourceContentSearch.ErrorSearch(response.resultCode.code))
         }
+    }
+
+    companion object {
+        const val TAG = "ProductListRepositoryImpl"
     }
 }
