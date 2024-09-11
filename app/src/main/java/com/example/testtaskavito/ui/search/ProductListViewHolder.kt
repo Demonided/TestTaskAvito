@@ -3,6 +3,7 @@ package com.example.testtaskavito.ui.search
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.testtaskavito.R
 import com.example.testtaskavito.databinding.ListProductBinding
 import com.example.testtaskavito.domain.product.Product
@@ -20,6 +21,8 @@ class ProductListViewHolder(private val binding: ListProductBinding) : RecyclerV
             Glide
                 .with(itemView.context) // используем context itemView для корректной работы Glide
                 .load(product.images[0]) // загружаем первое изображение из списка
+                .diskCacheStrategy(DiskCacheStrategy.NONE) // Отключение кеширования для теста
+                .skipMemoryCache(true)
                 .into(binding.listProductImage) // указываем ImageView, куда будет загружено изображение
         } else {
             // Установите placeholder или заглушку на случай отсутствия изображений

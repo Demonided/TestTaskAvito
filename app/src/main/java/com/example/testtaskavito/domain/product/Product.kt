@@ -1,5 +1,6 @@
 package com.example.testtaskavito.domain.product
 
+import com.example.testtaskavito.data.product.dto.list.Specification
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
@@ -18,5 +19,6 @@ data class Product(
     @SerializedName("product_rating")
     val productRating: Double,
     @SerializedName("product_specifications")
-    val productSpecifications: List<Any?>
+    val productSpecifications: List<Specification?>,
+    val brand: String?
 )

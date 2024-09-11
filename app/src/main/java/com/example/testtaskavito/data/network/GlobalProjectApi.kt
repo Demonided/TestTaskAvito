@@ -17,10 +17,10 @@ interface GlobalProjectApi {
     @GET("/app/v1/products/{product_id}")
     suspend fun getProduct(@Path("product_id") productId: String): CurrentProductResponse
 
-    @POST("/users")
+    @GET("/app/v1/users")
     suspend fun getAllUsers(): UserAllResponse
 
-    @GET("/users/auth/login")
+    @POST("/app/v1/users/auth/login")
     suspend fun getUsers(): UserDtoResponse
 
     @GET("/carts")
