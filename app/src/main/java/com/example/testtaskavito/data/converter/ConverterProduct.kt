@@ -15,7 +15,8 @@ object ConverterProduct {
         images = images,
         description = description,
         productRating = productRating,
-        productSpecifications = productSpecifications
+        productSpecifications = productSpecifications,
+        brand = brand
     )
 
     fun List<CurrentProductResponse>.mapToProductList(): List<Product> = map { it.mapToProduct() }

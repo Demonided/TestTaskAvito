@@ -73,6 +73,23 @@ class ProductFragment: Fragment() {
         binding.productName.text = product?.name
         binding.productCurrentPrice.text = product?.price.toString()
         binding.productPreviousPrice.text = product?.discountedPrice.toString()
+
+        // Характеристики
+        binding.productState.text = product?.productSpecifications
+            ?.find { it?.key == "Type" }
+            ?.value ?: "Нет информации о состоянии"
+        binding.productSize.text = product?.productSpecifications
+            ?.find { it?.key == "Bed Size" }
+            ?.value ?: "Нет информации о размере"
+        binding.productBodyMaterial.text = product?.productSpecifications
+            ?.find { it?.key == "Mattress Included" }
+            ?.value ?: "Нет информации о материале"
+        binding.productBrand.text = product?.productSpecifications
+            ?.find { it?.key == "Brand" }
+            ?.value ?: "Нет информации о бренде"
+        binding.productColor.text = product?.productSpecifications
+            ?.find { it?.key == "Primary Color" }
+            ?.value ?: "Нет информации о цвете"
     }
 
     override fun onDestroyView() {

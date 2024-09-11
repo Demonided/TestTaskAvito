@@ -8,14 +8,18 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import com.example.testtaskavito.R
 import com.example.testtaskavito.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
+
+    private var isLoginMode = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,34 +35,86 @@ class ProfileFragment : Fragment() {
 
         setupTextWatchers()
         setupPasswordVisibilityToggle()
+        setupButtonListeners()
+        updateUI() // Инициализация интерфейса на основе начального состояния
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (isLoginMode) {
+                    switchToRegisterMode()  // Переход в режим регистрации при нажатии "Назад"
+                } else {
+                    isEnabled = false
+                    requireActivity().onBackPressed() // Закрываем фрагмент
+                }
+            }
+        })
     }
 
-    // Инициализация необходимых переменных
     val passwordVisible = MutableLiveData(false)
 
-    // Функция для обновления состояния кнопки регистрации
-    private fun updateRegisterButtonState() {
-        val isAllFieldsFilled = !binding.profileName.text.isNullOrEmpty() &&
-                !binding.profileMail.text.isNullOrEmpty() &&
-                !binding.profilePassword.text.isNullOrEmpty() &&
-                !binding.profileConfirmPassword.text.isNullOrEmpty()
+    private fun setupButtonListeners() {
+        // Обработчик кнопки "Назад" в Toolbar
+        binding.profileBack.setNavigationOnClickListener {
+            switchToRegisterMode() // Возвращаемся к режиму регистрации
+        }
 
-        val isPasswordsMatch = binding.profilePassword.text.toString() == binding.profileConfirmPassword.text.toString()
+        // Обработчик кнопки "Регистрация"
+        binding.profileButtonRegistration.setOnClickListener {
+            if (isLoginMode) {
+                switchToRegisterMode()
+            } else {
+                // Здесь можно добавить логику для регистрации пользователя
+            }
+        }
 
-        // Отображение кнопки регистрации только если все поля заполнены и пароли совпадают
-        binding.profileButtonRegistration.isEnabled = isAllFieldsFilled && isPasswordsMatch
+        // Обработчик кнопки "Войти"
+        binding.profileButtonEntrance.setOnClickListener {
+            if (isLoginMode) {
+                // Здесь можно добавить логику для входа пользователя
+            } else {
+                switchToLoginMode()
+            }
+        }
     }
 
-    // Функция для управления видимостью иконки видимости пароля
-    private fun updatePasswordVisibilityIcon() {
-        binding.profilePasswordVisibilityIcon.visibility = if (binding.profilePassword.text.isNullOrEmpty()) View.GONE else View.VISIBLE
+    private fun switchToLoginMode() {
+        isLoginMode = true
+        updateUI()
     }
 
-    // Настройка слушателей изменений текста
+    private fun switchToRegisterMode() {
+        isLoginMode = false
+        updateUI()
+    }
+
+    // Обновление UI на основе состояния
+    private fun updateUI() {
+        if (isLoginMode) {
+            // Скрываем поля для имени и подтверждения пароля, показываем кнопку "Войти"
+            binding.profileCardName.visibility = View.GONE
+            binding.profileCardConfirmPassword.visibility = View.GONE
+            binding.profileButtonRegistration.visibility = View.GONE
+            binding.profileBack.visibility = View.VISIBLE // Показываем кнопку "Назад"
+            binding.profileButtonEntrance.visibility = View.VISIBLE
+            binding.profileButtonEntrance.text = "Войти"
+        } else {
+            // Показываем все поля и кнопку "Регистрация"
+            binding.profileCardName.visibility = View.VISIBLE
+            binding.profileCardConfirmPassword.visibility = View.VISIBLE
+            binding.profileButtonRegistration.visibility = View.VISIBLE
+            binding.profileButtonEntrance.visibility = View.VISIBLE
+            binding.profileBack.visibility = View.GONE // Скрываем кнопку "Назад"
+            binding.profileButtonEntrance.text = "Войти"
+            binding.profileButtonRegistration.text = "Регистрация"
+        }
+    }
+
     private fun setupTextWatchers() {
         val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                updateRegisterButtonState()
+                updatePasswordVisibilityIcon()
+            }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 updateRegisterButtonState()
@@ -68,30 +124,47 @@ class ProfileFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         }
 
-        // Добавление слушателей на все поля
         binding.profileName.addTextChangedListener(textWatcher)
         binding.profileMail.addTextChangedListener(textWatcher)
         binding.profilePassword.addTextChangedListener(textWatcher)
         binding.profileConfirmPassword.addTextChangedListener(textWatcher)
     }
 
-    // Настройка кнопки видимости пароля
+    private fun updateRegisterButtonState() {
+        val isAllFieldsFilled = !binding.profileName.text.isNullOrEmpty() &&
+                !binding.profileMail.text.isNullOrEmpty() &&
+                !binding.profilePassword.text.isNullOrEmpty() &&
+                !binding.profileConfirmPassword.text.isNullOrEmpty()
+
+        val isPasswordsMatch = binding.profilePassword.text.toString() == binding.profileConfirmPassword.text.toString()
+
+        binding.profileButtonRegistration.isEnabled = isAllFieldsFilled && isPasswordsMatch
+    }
+
+    private fun updatePasswordVisibilityIcon() {
+        binding.profilePasswordVisibilityIcon.visibility = if (binding.profilePassword.text.isNullOrEmpty()) View.GONE else View.VISIBLE
+    }
+
     private fun setupPasswordVisibilityToggle() {
         binding.profilePasswordVisibilityIcon.setOnClickListener {
             val isVisible = passwordVisible.value ?: false
             passwordVisible.value = !isVisible
 
             binding.profilePassword.transformationMethod = if (isVisible) {
-                PasswordTransformationMethod.getInstance() // Отображение пароля в виде звездочек
+                PasswordTransformationMethod.getInstance()
             } else {
-                HideReturnsTransformationMethod.getInstance() // Отображение пароля
+                HideReturnsTransformationMethod.getInstance()
             }
 
-            // Перемещение курсора в конец текста
+            val iconRes = if (isVisible) {
+                R.drawable.ic_visibility_off
+            } else {
+                R.drawable.ic_visibility_on
+            }
+            binding.profilePasswordVisibilityIcon.setImageResource(iconRes)
             binding.profilePassword.setSelection(binding.profilePassword.text.length)
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

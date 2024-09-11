@@ -17,5 +17,11 @@ data class CurrentProductResponse(
     @SerializedName("product_rating")
     val productRating: Double,
     @SerializedName("product_specifications")
-    val productSpecifications: List<Any?>
+    val productSpecifications: List<Specification?>,
+    val brand: String?,
 ): Response()
+
+data class Specification(
+    val key: String,
+    val value: String
+)

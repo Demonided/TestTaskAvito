@@ -6,29 +6,34 @@
     android:background="@color/black_light"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ImageView
         android:id="@+id/search_recycler_one_base"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/one_icon_window_search"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ImageView
         android:id="@+id/search_recycler_two_base"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/two_icon_window_search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_recycler_one_base"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ImageView
         android:id="@+id/search_recycler_text"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/three_icon_window_search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_recycler_two_base"/>

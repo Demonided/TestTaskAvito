@@ -41,6 +41,10 @@ class ProductListFragment : Fragment() {
         productListAdapter.itemClickListener = { _, item ->
             viewModel.setProductInfo(item)
 
+            debugLog(TAG) {
+                "List image = ${item.images}"
+            }
+
             findNavController().navigate(
                 R.id.action_searchFragment_to_productFragment
             )
