@@ -15,11 +15,11 @@
 <h4 align="left"></h4>
 
 Технологии и архитектура
-Язык: Kotlin
-Архитектура: Чистая архитектура (Clean Architecture)
-Принципы: SOLID
-Работа с API: Retrofit
-Асинхронность: Kotlin Coroutines
-Обработка состояния: ViewModel и LiveData
-Интерфейс: XML 
+- Язык: Kotlin
+- Архитектура: Чистая архитектура (Clean Architecture)
+- Принципы: SOLID
+- Работа с API: Retrofit
+- Асинхронность: Kotlin Coroutines
+- Обработка состояния: ViewModel и LiveData
+- Интерфейс: XML 
 </h4>
