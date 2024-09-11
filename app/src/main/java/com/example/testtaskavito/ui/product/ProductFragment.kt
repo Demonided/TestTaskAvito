@@ -8,9 +8,14 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.testtaskavito.R
 import com.example.testtaskavito.databinding.FragmentProductBinding
+import com.example.testtaskavito.domain.debugLog
 import com.example.testtaskavito.domain.product.Product
 import com.example.testtaskavito.ui.product.viewmodel.ProductViewModel
+import com.example.testtaskavito.ui.search.ProductListAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProductFragment: Fragment() {
@@ -19,6 +24,8 @@ class ProductFragment: Fragment() {
 
     private var _binding: FragmentProductBinding? = null
     private val binding get() = _binding!!
+
+    lateinit var productAdapter: ProductAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,8 +39,22 @@ class ProductFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        productAdapter = ProductAdapter()
+
+        binding.productRecyclerViewImage.layoutManager =
+            LinearLayoutManager(requireContext())
+        binding.productRecyclerViewImage.adapter = productAdapter
+
         lifecycleScope.launchWhenStarted {
             productViewModel.selectedProduct.collect { product ->
+                productAdapter.imageProduct.clear()
+                product?.images?.let { productAdapter.imageProduct.addAll(it) }
+                productAdapter.notifyDataSetChanged()
+
+                debugLog(TAG) {
+                    "Список фото = ${product?.images}"
+                }
+
                 displayProductInfo(product)
             }
         }
@@ -50,7 +71,8 @@ class ProductFragment: Fragment() {
     private fun displayProductInfo(product: Product?) {
         // Заполнение UI данными о продукте
         binding.productName.text = product?.name
-        // Заполните другие поля по необходимости
+        binding.productCurrentPrice.text = product?.price.toString()
+        binding.productPreviousPrice.text = product?.discountedPrice.toString()
     }
 
     override fun onDestroyView() {
@@ -61,6 +83,8 @@ class ProductFragment: Fragment() {
     companion object {
 
         private const val SAVE_PRODUCT = "SAVE_PRODUCT"
+
+        private const val TAG = "ProductFragment"
 
         fun createArgs(product: Product): Bundle {
             return bundleOf(SAVE_PRODUCT to product)

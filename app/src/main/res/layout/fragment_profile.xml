@@ -102,6 +102,15 @@
             android:textSize="15sp"
             />
 
+        <ImageView
+            android:id="@+id/profile_password_visibility_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_visibility_on"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="end"
+            />
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -127,6 +136,21 @@
             />
 
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/profile_button_registration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:padding="10dp"
+        android:text="Регистрация"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:background="@drawable/rounded_button_8"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline"
+        app:layout_constraintBottom_toTopOf="@id/profile_button_entrance"/>
 
     <TextView
         android:id="@+id/profile_button_entrance"
